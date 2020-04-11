@@ -1,0 +1,11 @@
+version: '2.0'
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: 5432
+    volumes:
+      - ./docker/pgdata:/var/lib/postgresql/data
