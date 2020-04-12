@@ -1,8 +1,8 @@
-import 'model/model.dart';
 import 'aqd_api.dart';
 import 'model/usuario_model.dart';
 import 'model/categoria_model.dart';
 import 'model/movimentacao_model.dart';
+
 /// This type initializes an application.
 ///
 /// Override methods in this class to set up routes and initialize services like
@@ -33,9 +33,9 @@ class AqdApiChannel extends ApplicationChannel {
   @override
   Controller get entryPoint {
     final router = Router();
-
-    router.route("/model/[:id]").link(() => ManagedObjectController<Model>(context));
-
+    // UsuariosRouter.configurar(router, context);
+    // CategoriaRouter.configurar(router, context);
+    // MovimentacoesRouter.configurar(router, context);
     return router;
   }
 
@@ -45,8 +45,13 @@ class AqdApiChannel extends ApplicationChannel {
 
   ManagedContext contextWithConnectionInfo(DatabaseConfiguration connectionInfo) {
     final dataModel = ManagedDataModel.fromCurrentMirrorSystem();
-    final psc = PostgreSQLPersistentStore(connectionInfo.username, connectionInfo.password, connectionInfo.host,
-        connectionInfo.port, connectionInfo.databaseName);
+    final psc = PostgreSQLPersistentStore(
+      connectionInfo.username,
+      connectionInfo.password,
+      connectionInfo.host,
+      connectionInfo.port,
+      connectionInfo.databaseName,
+    );
 
     return ManagedContext(dataModel, psc);
   }
